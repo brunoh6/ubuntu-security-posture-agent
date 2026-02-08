@@ -205,10 +205,24 @@ This tool focuses on **signal quality and engineering clarity**, not feature cou
 
 ---
 
-## Testing
+## Testing -> Tested on Ubuntu!
 
-The project includes minimal unit tests for key inspectors.  
-Tests focus on **logic correctness**, not system mutation.
+This agent was tested on Ubuntu 22.04.5 LTS in a virtualized environment (VMWare)
+
+The following real system events were generated to validate detection logic:
+
+- Multiple failed SSH login attempts
+- Legitimate sudo usage by a local user
+- systemd-managed SSH service enabled and running
+
+After these events, the agent correctly escalated severity using heuristic
+correlation (failed authentication attempts combined with sudo usage),
+resulting in a `Critical` finding.
+
+Screenshots included in `docs/screenshots/` show:
+- Baseline execution
+- Post-event execution
+- Corresponding authentication log entries
 
 ---
 
