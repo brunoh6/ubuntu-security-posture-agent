@@ -3,6 +3,7 @@ from datetime import datetime
 
 from agent.inspectors import users, sudo, services, ports, processes, permissions
 from agent.logs import auth, journald
+from agent.logs.heuristics import apply_heuristics
 from agent.core.config import load_config
 
 
@@ -96,6 +97,9 @@ def run(config_path=None):
     checks = []
     checks.extend(_run_inspectors(config))
     checks.extend(_run_log_checks(config))
+
+    derived = apply_heuristics(checks)
+    checks.extend(derived)
 
     result = {
         "metadata": _collect_metadata(),
