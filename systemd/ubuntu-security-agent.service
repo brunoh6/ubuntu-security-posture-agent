@@ -1,0 +1,16 @@
+[Unit]
+Description=Ubuntu Security Posture & Detection Agent
+Documentation=https://github.com/<your-username>/ubuntu-security-posture-agent
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 -m agent.main --json
+WorkingDirectory=/opt/ubuntu-security-posture-agent
+StandardOutput=journal
+StandardError=journal
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
